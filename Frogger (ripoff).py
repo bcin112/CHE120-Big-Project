@@ -8,6 +8,7 @@ c = random.choice
 #################################### CLASSES ##################################
 
 class player():
+class player(): #Just a test comment to see if git works
     def __init__(self):
         self.x = 500
         self.y = 700
