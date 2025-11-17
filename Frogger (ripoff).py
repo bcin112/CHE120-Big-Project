@@ -7,8 +7,8 @@ c = random.choice
 
 #################################### CLASSES ##################################
 
-class player(): #Just a test comment to see if git works
-    def __init__(self): #go fuck yourself
+class player(): 
+    def __init__(self): 
         self.x = 500
         self.y = 700
         self.w = 50
