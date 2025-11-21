@@ -7,7 +7,7 @@ c = random.choice
 
 #################################### CLASSES ##################################
 
-class player(): 
+class player(): # I hate joseph personally
     def __init__(self): 
         self.x = 500
         self.y = 700
