@@ -7,7 +7,7 @@ r = random.randint
 c = random.choice
 
 #################################### CLASSES ##################################
-
+#KB: creates a class
 class player(): 
     def __init__(self): 
         self.x = 500
