@@ -2,6 +2,7 @@
 
 import pygame
 import random
+#KB: improves readability in later code by assigning shorter names to two functions; random.randint generates a random integer in a given range and random.choice returns a random value from a provided sequence   
 r = random.randint
 c = random.choice
 
