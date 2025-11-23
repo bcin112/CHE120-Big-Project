@@ -39,9 +39,9 @@ class player():
         screen.blit(self.img, (self.x-extraX,self.y-extraY))
     
     def move(self,up,down,left,right):
-#KB: allows the variable pos to be modified and used on a global scope        
+#KB: allows the variable pos to be modified and used on a global scope instead of exclusively in this function        
         global pos
-        
+#KB: relates to movement in the y-direction; will run the first statement intially and then the value of self.y will be modified and the next elif statement will be run          
         if self.y == 700 and up:
             self.y -= 100
             self.img = frogs[0]
