@@ -14,7 +14,7 @@ class player():
         self.y = 700
         self.w = 50
         self.h = 1
-    #KB: loads the image that will be used for the frog character and scales it to size
+#KB: loads the image that will be used for the frog character and scales it to size
         self.img = pygame.image.load("tile000.png")
         self.img = pygame.transform.scale(self.img, (110,110))
     
