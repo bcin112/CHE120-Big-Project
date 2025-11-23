@@ -1,4 +1,4 @@
-#Joseph Foti
+#Joseph Foti (JF), Kaila Brophy (KB), Mikaela Smith (MS)
 
 import pygame
 import random
@@ -7,7 +7,7 @@ c = random.choice
 
 #################################### CLASSES ##################################
 
-class player(): # I hate joseph personally
+class player(): 
     def __init__(self): 
         self.x = 500
         self.y = 700
