@@ -35,9 +35,11 @@ class player():
             extraY = 2
             extraX = 20
             
+#KB: draws image of self.img (frog character) onto a position determined by the value of self.img 
         screen.blit(self.img, (self.x-extraX,self.y-extraY))
     
     def move(self,up,down,left,right):
+#KB: allows the variable pos to be modified and used on a global scope        
         global pos
         
         if self.y == 700 and up:
