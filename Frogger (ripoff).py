@@ -17,11 +17,11 @@ class player():
 #KB: loads the image that will be used for the frog character and scales it to size
         self.img = pygame.image.load("tile000.png")
         self.img = pygame.transform.scale(self.img, (110,110))
-    
+    #JF: The draw method for the player sprite, (i was too lazy to center the sprite correctly so i manually adjusted it for when it rotates)
     def draw(self):
         extraY = -11
         extraX = 1.5
-        
+        #JF: The frogs list is initialized at the beginning of the loop and contains rotated player sprites by 0,90,180,and 270 degrees respectivley
         if self.img == frogs[0]:
             extraY = -11
             extraX = 1.5
@@ -41,16 +41,19 @@ class player():
     def move(self,up,down,left,right):
 #KB: allows the variable pos to be modified and used on a global scope instead of exclusively in this function        
         global pos
-#KB: relates to movement in the y-direction; will run the first statement intially and then the value of self.y will be modified and the next elif statement will be run          
+#KB: relates to movement in the y-direction; will run the first statement intially and then the value of self.y will be modified and the next elif statement will be run
+        #JF: This statement covers the case of the player being on the bottom lane and actually needing to move the sprite up as opposed to moving all other elements down
+        #through the global pos variable           
         if self.y == 700 and up:
             self.y -= 100
             self.img = frogs[0]
         
+        #JF: if the player "moves up" the height variable pos is increased to shift all other sprites down in the display
         elif up:
             pos += 100
             lanes.append(lane(-100 - pos))
             self.img = frogs[0]
-        
+        #JF: allows the player to move from the second form the bottom lane to the bottom lane, without shifting the screen so the player cannot backtrack
         elif down:
             self.y += 100
             self.img = frogs[2]
