@@ -438,7 +438,8 @@ def menu(spot,right):
     screen.blit(titleFont2.render(("Quit"), False, tColor4), [420,640])
     
     screen.blit(select, [370,420+(spot*70)])
-#KB: 
+#KB: defines a new function that is triggered if the player clicks the right arrow when beside the "instructions" main menu option and formats the instruction text
+# into multiple lines across the screen
 def instructions(right):
     global state
     
@@ -451,11 +452,12 @@ def instructions(right):
     screen.blit(titleFont2.render(("move the frog as far as you can to get "), False, (53,197,0)), [200,470])
     screen.blit(titleFont2.render((" a high score while crossing trees, "), False, (53,197,0)), [220,540])
     screen.blit(titleFont2.render(("jumping on logs, and avoiding cars"), False, (53,197,0)), [230,610])
-    
+#KB: allows the player to return to the main menu after viewing the instructions    
     if right:
         init()
         state = 'main'
-
+#KB: defines a function triggered if the player clicks the right arrow while beside the "leaderboard" option on the main menu; 
+# if the function is triggered, the player's entered name that was previously collected in spyder will be printed beside their recorded score 
 def lb(right):
     global state
     
@@ -470,7 +472,8 @@ def lb(right):
     if right:
         init()
         state = 'main'
-        
+#KB: uses if statements to set up what happens in scenarios where the player dies in the game; generates different images and sounds
+#depending on how the player dies           
 def die(x):
     global state
     global noInput
@@ -508,7 +511,7 @@ def die(x):
         pygame.time.delay(2000)
     
     leaderboard.append(person(name,pos))
-    
+ #KB: returns to main menu after the character death scene is played   
     state = 'main'
     init()
     noInput = True
@@ -534,7 +537,8 @@ def init():
     global p
     
     pos = contact = 0
-
+#KB: setting start = 3 relates to earlier established conditions that make the first lanes generated grass; from above, when start > 0 a lane of grass will be generated
+#and then the value of start will be lowered by one, meaning three lanes of grass will always be generated at the beginning of the game   
     start = 3
 
     p = player()
