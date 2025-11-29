@@ -140,7 +140,7 @@ class lane():
             
         else:
             self.type = c(styles)
-#KB: sets up the graphics and other components per ground material and makes sure only the correct obstacles and components (like trees and lilypads) are being generated on their corresponding material            
+#KB: sets up the graphics and other components specific to each ground material and makes sure only the correct obstacles and components (like trees and lilypads) are being generated on their corresponding material            
         if self.type in "grass_trees":
             
             if self.type == "trees":
@@ -197,7 +197,7 @@ class lane():
                         pygame.draw.rect(screen,color,(i,self.y + pos - 10,80,20))
 #KB: creates a class containing information concerning movement of obstacles                 
 class obstacle():
- #KB: loads images of obstacles based on the terrain; for example, if the ground material type is "trees", a file containing a tree will be loaded and added at a position on the ground   
+#KB: loads and scales images of obstacles based on the terrain; for example, if the ground material type is "trees", a file containing a tree will be loaded and added at a position on the ground   
     def __init__(self,lane):
         self.y = lane.y
         self.img = pygame.image.load("tile004.png")
@@ -216,7 +216,7 @@ class obstacle():
                 
             self.x = r(0,9)*100
             self.w = 100
-        
+#KB: sets up moving obstacles for when the ground is water with logs or road with cars and whales        
         else:
             self.w = 0
             avoid = 0
@@ -279,7 +279,7 @@ class obstacle():
                     x = self.Limg
                     self.Limg = pygame.transform.flip(self.Rimg, True, False)
                     self.Rimg = pygame.transform.flip(x, True, False)
-                    
+#KB: draws the frog character and accounts for scenarios where the frog is on a moving surface, like a moving log                      
     def draw(self):
         global pos
         
@@ -313,7 +313,7 @@ class obstacle():
     def move(self):
         self.x += self.lane.speed
 
-
+#KB: sets up a class containing the name and score of the player which will be needed for the leaderboard
 class person():
     def __init__(self,name,score):
         self.name = name
