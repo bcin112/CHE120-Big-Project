@@ -77,7 +77,9 @@ class lane():
         self.speed = 0
     
         self.obstacles = []
-
+#KB: If the wait is equal to False, the program uses a series of if statements to assign values to various varibles that will later be used to determine the material of the ground; 
+# the use of exclusive if statements ensures that only one of these cases applies.
+  
         if not wait:
             if pos < 2500:
                 g = 2
