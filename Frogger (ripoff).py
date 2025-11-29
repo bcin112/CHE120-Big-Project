@@ -180,7 +180,7 @@ class lane():
     
         if self.direction == "r":
             self.speed *= -1
-#KB:             
+              
     def draw(self):
         global pos
         pygame.draw.rect(screen, self.bg, (0, self.y+pos, 1000, 100))
@@ -195,9 +195,9 @@ class lane():
                     
                     for i in range(-40,1041,100):
                         pygame.draw.rect(screen,color,(i,self.y + pos - 10,80,20))
-                
+#KB: creates a class containing information concerning movement of obstacles                 
 class obstacle():
-    
+ #KB: loads images of obstacles based on the terrain; for example, if the ground material type is "trees", a file containing a tree will be loaded and added at a position on the ground   
     def __init__(self,lane):
         self.y = lane.y
         self.img = pygame.image.load("tile004.png")
