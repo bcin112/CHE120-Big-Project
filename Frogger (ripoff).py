@@ -131,7 +131,7 @@ class lane():
 # not wait==False, meaning that wait==True                   
         else:
             wait = False
-#KB: if the     
+    
         global start        
         if start > 0:
             self.type = "grass"
