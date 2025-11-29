@@ -551,6 +551,7 @@ def init():
     for i in range(9):
         lanes.append(lane(700-(i*100)))
 #################################### GLOBAL VARIABLES #########################
+#KB: sets up how the game is displayed and its dimensions and rotates the images used so that they are facing the correct direction during gameplay
 pygame.init()
 WIDTH = 1000
 HEIGHT = 800
@@ -585,9 +586,9 @@ oppsL = [pygame.transform.flip(pygame.transform.scale(pygame.image.load("tile059
 leaderboard = []
 for i in range(10):
     leaderboard.append(person('------',0))
-
+#KB: sets the scale and position of the frog on the main menu screen
 select = pygame.transform.scale(pygame.image.load('tile004.png'), (40,40))
-
+#KB: assigns variables to the sounds and fonts used throughout the game for easy referencing in the rest of the code
 scoreFont = pygame.font.SysFont('playbill', 50)
 titleFont = pygame.font.Font('Retro Gaming.ttf', 15)
 titleFont2 = pygame.font.Font('Retro Gaming.ttf', 25)
