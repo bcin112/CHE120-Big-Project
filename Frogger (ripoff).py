@@ -744,11 +744,14 @@ while True:
                     if i.type == "w(log)":
                         onLog = True
     # ============================== DRAW STUFF ============================= #
+#KB: uses a series of if statements to set up the graphics and components of the game based on which screen is being displayed
+#KB: when the game is started, the previously defined functions are called upon and the graphics are set up through the drawGame function    
     if state == 'game':
         screen.fill((0, 0, 0))
         
         drawGame()
-    
+#KB: allows the player to toggle between menu options by using the up and down arrows; if the up arrow is used, the spot number will lower by one, meaning the selected option will
+# be one above the one previously selected; the opposite occurs if the down arrow is pressed.    
     elif state == 'main':
         if up:
             spot -= 1
