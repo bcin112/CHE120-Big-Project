@@ -140,7 +140,7 @@ class lane():
             
         else:
             self.type = c(styles)
-#KB: sets up the graphics and obstacles per ground material and makes sure only the correct obstacles are being generated on their corresponding material            
+#KB: sets up the graphics and other components per ground material and makes sure only the correct obstacles and components (like trees and lilypads) are being generated on their corresponding material            
         if self.type in "grass_trees":
             
             if self.type == "trees":
@@ -180,7 +180,7 @@ class lane():
     
         if self.direction == "r":
             self.speed *= -1
-            
+#KB:             
     def draw(self):
         global pos
         pygame.draw.rect(screen, self.bg, (0, self.y+pos, 1000, 100))
