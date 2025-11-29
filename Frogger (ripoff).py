@@ -131,7 +131,8 @@ class lane():
 # not wait==False, meaning that wait==True                   
         else:
             wait = False
-    
+#KB: makes the starting ground material grass if the value of start is greater than zero then lowers the value of start by one; this will make the first
+#three lanes of each game grass     
         global start        
         if start > 0:
             self.type = "grass"
