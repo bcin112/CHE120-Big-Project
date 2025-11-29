@@ -600,11 +600,11 @@ jump = pygame.mixer.Sound("jump.wav")
 bubble = pygame.mixer.Sound("bubble.wav")
 scream = pygame.mixer.Sound("scream.wav")
 #################################### GAME LOOP ################################
-
+#KB: uses a while loop and if statements to determine what occurs after the game has ended 
 while True:
     # ============================== HANDLE EVENTS  ========================= #
     move = True
-    
+#KB: allows the player to exit the game by breaking the loop that returns the player to the main menu; without this the player would not be able to exit the game through in-game commands     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -647,6 +647,7 @@ while True:
     done = noInput = False
 
     # ============================== MOVE STUFF ============================= #
+#KB: uses if statements to allow player movement and movement of the cars on road spaces; if the player is on a log, they will be moved in the direction that the log is moving  
     if state == 'game':
         
         for i in lanes:
@@ -663,6 +664,9 @@ while True:
         else:
             p.x = round(p.x/100)*100
     # ============================== COLLISION ============================== #
+#KB: dictates what happens when the player collides with obstacles through if statements; in the case that the object is a tree, the player will not be able to move
+# onto the same square as the obstacle, whereas moving onto a water square when the player is not on a log or colliding with a car will result in character death
+# this will trigger the scenarios established above for each type of character death.   
     if state == 'game':
 
         if p.y == 700:
