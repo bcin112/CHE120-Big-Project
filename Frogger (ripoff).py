@@ -65,7 +65,7 @@ class player():
         elif left and self.x > 0:
             self.x -=100
             self.img = frogs[1]
-        
+#KB: creates a class relating to the movement and position of the lanes and cars that appear at various points throughout the game         
 class lane():
     
     def __init__(self,y):
@@ -113,7 +113,8 @@ class lane():
                 R = 4
                 l = 3
                 p = 2
-                
+#KB: uses a for loop to decide the material on the ground and how many tiles the material extends for; the range of each variable will depend on the elif statements above
+#which will result in a different combination of ground materials based on the player's position.                 
             for i in range(g):
                 styles.append("grass")
             for i in range(t):
