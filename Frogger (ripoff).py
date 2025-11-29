@@ -319,6 +319,8 @@ class person():
         self.name = name
         self.score = score
 #################################### FUNCTIONS ################################
+#KB: checks to see if multiple obstacles are being placed at the same position; if the position of two obstacles is the same,
+#a different value for the position of the obstacle will be generated 
 def obstaclePlacementReroll(lane1,lane2):
 
     done = False
@@ -336,7 +338,7 @@ def removeAll(i,thing):
 
     for x in range(i.count(thing)):
         i.remove(thing)
-
+#KB: draws the lanes and the score in the top lefthand corner of the game
 def drawGame():
 
     for i in lanes:
@@ -348,7 +350,7 @@ def drawGame():
     p.draw()
     
     screen.blit(scoreFont.render(("Score:" + str(pos)), False, (255,255,255)), [25,25])
-
+  
 def menu(spot,right):
     global state
     global done
@@ -357,12 +359,12 @@ def menu(spot,right):
     
     screen.fill((0, 0, 0))
     screen.blit(title, [0,-7])
-    
+ #KB:prints instructions for the player on the main menu screen    
     screen.blit(titleFont.render(("use arrow keys and press right to select"), False, (53,197,0)), [300,300])
     
     tColor1 = tColor2 = tColor3 = tColor4 = (53,197,0)
     hover = (212, 217, 67)
-    
+      
     if spot == 0:
         tColor1 = hover
     elif spot == 1:
@@ -371,7 +373,8 @@ def menu(spot,right):
         tColor3 = hover
     elif spot == 3:
         tColor4 = hover
-        
+#KB: uses a series of if statements to establish what happens when the player clicks the right arrow at each different main menu spot; spot==0 means the player has
+# selected to start the game which starts the game music and prompts the user to go to shell in spyder to enter their player name.           
     if right:
         if spot == 0:
             pygame.mixer.Sound.play(startSound)
@@ -389,7 +392,8 @@ def menu(spot,right):
             screen.fill((0,0,0))
             screen.blit(titleFont2.render(("Go to shell"), False, (53,197,0)), [415,430])
             pygame.display.flip()
-                
+#KB: restricts the acceptable inputs the player can provide for their player name through an if statement; if the player's name is greater than 6 characters,
+# or the player does not input a name, they will be prompted to enter a 1-6 character name.                 
             while True:
                 name = input("Enter name here: ")
                 if len(name) > 6 or len(name) == 0:
@@ -434,7 +438,7 @@ def menu(spot,right):
     screen.blit(titleFont2.render(("Quit"), False, tColor4), [420,640])
     
     screen.blit(select, [370,420+(spot*70)])
-
+#KB: 
 def instructions(right):
     global state
     
