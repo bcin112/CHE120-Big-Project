@@ -140,7 +140,7 @@ class lane():
             
         else:
             self.type = c(styles)
-        
+#KB: sets up the graphics and obstacles per ground material and makes sure only the correct obstacles are being generated on their corresponding material            
         if self.type in "grass_trees":
             
             if self.type == "trees":
