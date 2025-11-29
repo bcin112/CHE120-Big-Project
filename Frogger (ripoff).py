@@ -128,12 +128,11 @@ class lane():
             for i in range(p):
                 styles.append("w(pad)")
 #KB: if wait is equal to True, the else portion of the if statement will be triggered and the value of wait would be set to False; this accounts for any cases where the value of
-# not wait==False, meaning that wait==True  
-                 
+# not wait==False, meaning that wait==True                   
         else:
             wait = False
-    
-        global start
+#KB:     
+        global start        
         if start > 0:
             self.type = "grass"
             start -= 1
