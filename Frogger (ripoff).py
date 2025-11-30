@@ -1,4 +1,4 @@
-#Joseph Foti (JF), Kaila Brophy (KB), Mikaela Smith (MS)
+#Joseph Foti (JF), Kaila Brophy (KB)
 
 import pygame
 import random
@@ -201,19 +201,24 @@ class obstacle():
     def __init__(self,lane):
         self.y = lane.y
         self.img = pygame.image.load("tile004.png")
+        #JF: Each obstacle also contains the information of the lane it's contained in to keep movement and direction consistent
         self.lane = lane
         self.h = 100
         self.t = self.p = False
         
+        #JF: the in operator is used here for ease of readability, to just know that it's one of two lane types with no need to worry about edge cases as there are only 5 lane types 
         if lane.type in "trees_w(pad)":
             if lane.type == "trees":
+                #JF: if the lane is a "trees" lane, the obstacle present is trees. WOW !
                 self.img = pygame.image.load("treeSprite.png")
                 self.img = pygame.transform.scale(self.img, (100,100))
             
             else:
+                #JF: if the lane type is w(water) with lily pads, the "obstacle" present is lilypads
                 self.img = pygame.image.load("pad.png")
                 self.img = pygame.transform.scale(self.img, (95,95))
-                
+            
+            #JF: randomly assigns an x value to the obstacle along the lane
             self.x = r(0,9)*100
             self.w = 100
 #KB: sets up moving obstacles for when the ground is water with logs or road with cars and whales        
