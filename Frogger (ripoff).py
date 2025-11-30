@@ -57,7 +57,8 @@ class player():
         elif down:
             self.y += 100
             self.img = frogs[2]
-            
+        
+        #JF: These two checks allow the player to move left and right, changing the sprite accordingly
         if right and self.x < 900:
             self.x += 100
             self.img = frogs[3]
@@ -152,15 +153,17 @@ class lane():
                 
             self.bg = (121+r(-10,10),201+r(-10,10),40+r(-10,10))
 
-        
+        #JF: if the lany type is road, it randomly assigns a speed, direction, and amount for the cars
         elif self.type == "road":
             self.direction = c(["l","r"])
             self.bg = (0,0,0)
             self.speed = r(3,6)
             for i in range(r(2,5)):
+                #JF: the obstacle 
                 self.obstacles.append(obstacle(self))
         
         else:
+            #JF: this else contains all water lane types, and makes it so that you cannot have two of the same water lane in a row by removing it from the pool of styles availible
             if self.type == "w(pad)":
                 for i in range(r(3,7)):
                     self.obstacles.append(obstacle(self))
@@ -175,24 +178,29 @@ class lane():
                     self.obstacles.append(obstacle(self))
                 removeAll(styles,"trees")
                 wait = True
-                
+            
             self.bg = (13+r(-10,10),76+r(-10,10),140+r(-10,10))
     
         if self.direction == "r":
+            #JF: speeds are default initialized for going left, so if the lane is moving right the speeds are reversed
             self.speed *= -1
               
     def draw(self):
         global pos
+        #JF: The lanes draw themselves as just a screenwide rectangle at their initial y value plus the position vairable tht shifts the screen as the game progresses
         pygame.draw.rect(screen, self.bg, (0, self.y+pos, 1000, 100))
         
         if self.type == "road":
             for i in lanes:
+                #JF: this is the dumbest thing i've ever coded
+                #If two road lanes are side by side, the road lines betweeen them are yellow if going in opposite directions and white if they travel together
                 if i.y == self.y - 100 and i.type == "road":
                     color = (255,255,255)
                     
                     if self.direction != i.direction:
                         color = (255,255,0)
                     
+                    #JF: this draws in the road line rectangles 
                     for i in range(-40,1041,100):
                         pygame.draw.rect(screen,color,(i,self.y + pos - 10,80,20))
 #KB: creates a class containing information concerning movement of obstacles                 
@@ -218,7 +226,7 @@ class obstacle():
                 self.img = pygame.image.load("pad.png")
                 self.img = pygame.transform.scale(self.img, (95,95))
             
-            #JF: randomly assigns an x value to the obstacle along the lane
+            #JF: randomly assigns an x value to the tree or lily pad along the lane
             self.x = r(0,9)*100
             self.w = 100
 #KB: sets up moving obstacles for when the ground is water with logs or road with cars and whales        
@@ -227,15 +235,18 @@ class obstacle():
             avoid = 0
             
             if lane.type == "road":
+                #JF: forces the cars to be spaced apart
                 for i in lane.obstacles:
                     avoid += i.w + 30 + r(2,3)*100
                 
+                #JF: adds a fun easter egg of one in 30 cars being the hipster whale (the mascot of the crossy road devs)
                 if r(1,30)==1:
                     self.img = pygame.image.load("whale.png")
                     self.img = pygame.transform.scale(self.img, (152,100))
                     self.w = 160
                     
                 else:
+                    #
                     self.img = pygame.image.load(c(["tile049.png","tile048.png"]))
                     
                     if r(1,10) == 1 and lane.speed >= 5:
@@ -257,6 +268,7 @@ class obstacle():
                 self.Limg = pygame.image.load("tile024.png")
                 self.Mimg = pygame.image.load("tile025.png")
                 self.Rimg = pygame.image.load("tile026.png")
+                
                 self.Limg = pygame.transform.scale(self.Limg, (100,100))
                 self.Mimg = pygame.transform.scale(self.Mimg, (100,100))
                 self.Rimg = pygame.transform.scale(self.Rimg, (100,100))
@@ -288,13 +300,18 @@ class obstacle():
     def draw(self):
         global pos
         
+        #JF: for the log type fo obstacle, it begins by displaying the leftmomst log sprite and shifting right
         if self.lane.type == "w(log)":
             screen.blit(self.Limg, (self.x,self.y + pos - 5))
+            
+            #JF: the length of the log is detirmined by its random width assigned earlier, the amount of midsections it has is the number of 100px tiles it takes up -2
             for i in range((self.w//100)-2):
                 screen.blit(self.Mimg, (self.x+(100*(i+1)),self.y + pos - 5))
+            #JF: this last line adds the rightmost tile of the log
             screen.blit(self.Rimg, (self.x+(self.w-100),self.y + pos - 5))
-
+        #Self.t is just a check to see if the car is a tractor
         elif self.t:
+            #JF: the speed at which the tractor cycles between its sprites depends on the speed of the lane it is in
             if self.lane.direction == "l":
                 self.img = tractorR[(self.frame//(self.lane.speed*2))%3]
             else:
@@ -303,6 +320,7 @@ class obstacle():
             screen.blit(self.img, (self.x,self.y+pos))
             self.frame += 1
         
+        #JF: the same logic for cycling the tractors animation is used on the cop cars too
         elif self.p:
             if self.lane.direction == "l":
                 self.img = oppsR[(self.frame//(self.lane.speed*3))%2]
@@ -311,10 +329,11 @@ class obstacle():
                 
             screen.blit(self.img, (self.x,self.y+pos))
             self.frame += 1
-
+        #JF: if there is no animation, the car just displays its singular sprite
         else:
             screen.blit(self.img, (self.x,self.y+pos))
     
+    #JF: every frame update, the cars' x value is summed with the cars' lane's speed (which is why it was handy to have each obstacle contain the information form its lane)
     def move(self):
         self.x += self.lane.speed
 
@@ -339,10 +358,12 @@ def obstaclePlacementReroll(lane1,lane2):
                     I.x = r(0,9)*100
                     done = False
 
+#JF: a simple function thats probably alrady built-in that removes all instances of an entry from a list
 def removeAll(i,thing):
 
     for x in range(i.count(thing)):
         i.remove(thing)
+        
 #KB: draws the lanes and the score in the top lefthand corner of the game
 def drawGame():
 
@@ -355,7 +376,7 @@ def drawGame():
     p.draw()
     
     screen.blit(scoreFont.render(("Score:" + str(pos)), False, (255,255,255)), [25,25])
-  
+
 def menu(spot,right):
     global state
     global done
@@ -367,6 +388,7 @@ def menu(spot,right):
  #KB:prints instructions for the player on the main menu screen    
     screen.blit(titleFont.render(("use arrow keys and press right to select"), False, (53,197,0)), [300,300])
     
+    #JF:sets the defaul colour of the menu selection options as well as what it changes to iff it is hovered over
     tColor1 = tColor2 = tColor3 = tColor4 = (53,197,0)
     hover = (212, 217, 67)
       
@@ -411,12 +433,14 @@ def menu(spot,right):
             
             state = 'game'
             
+            #JF: runs the function that initializes the whole game
             init()
         
         elif spot == 1:
             x = leaderboard
 
             leaderboard = []
+            #JF: reorders the leaderboard list of player objects to be greatest score to least
             for i in x:
                 a = True
                 for I in range(len(leaderboard)):
@@ -429,7 +453,8 @@ def menu(spot,right):
                     
             state = 'leaderboard'
         
-        elif spot == 2:                
+        elif spot == 2:
+            #JF: sends you to the instructions menu
             state = 'instructions'
         
         elif spot == 3:
