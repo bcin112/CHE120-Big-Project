@@ -69,6 +69,7 @@ class player():
 #KB: creates a class relating to the movement and position of the lanes and cars that appear at various points throughout the game         
 class lane():
     
+    #JF: the lane takes in a y value to place it at for convenience while initializing
     def __init__(self,y):
         global wait
         global styles
@@ -183,6 +184,7 @@ class lane():
     
         if self.direction == "r":
             #JF: speeds are default initialized for going left, so if the lane is moving right the speeds are reversed
+            #It also appears when first making this that I reversed the labelling of left and right, so that lanes labelled as right, go left and vice versa
             self.speed *= -1
               
     def draw(self):
@@ -209,7 +211,7 @@ class obstacle():
     def __init__(self,lane):
         self.y = lane.y
         self.img = pygame.image.load("tile004.png")
-        #JF: Each obstacle also contains the information of the lane it's contained in to keep movement and direction consistent
+        #JF: Each obstacle also contains the information of the lane it's contained in to keep movement and direction consistent (and easy for me to code)
         self.lane = lane
         self.h = 100
         self.t = self.p = False
@@ -246,9 +248,10 @@ class obstacle():
                     self.w = 160
                     
                 else:
-                    #
+                    #JF: randomly chooses between two car sprites
                     self.img = pygame.image.load(c(["tile049.png","tile048.png"]))
                     
+                    #JF: randomly decides in two checks if the car is going to become a police car or tractor 
                     if r(1,10) == 1 and lane.speed >= 5:
                         self.p = True
                         self.frame = r(0,1)
@@ -265,6 +268,7 @@ class obstacle():
                 
                 
             else:
+                #JF: initializes the sprites for logs
                 self.Limg = pygame.image.load("tile024.png")
                 self.Mimg = pygame.image.load("tile025.png")
                 self.Rimg = pygame.image.load("tile026.png")
@@ -282,13 +286,14 @@ class obstacle():
                 
                 
             
-            
+            #JF: ensures all obstacles are offset form eachother an loop well
             if lane.direction == "l":
                 self.x = 1400 - avoid
                 
             else:
                 self.x = -400 + avoid
-            
+                
+                #JF: flips car sprites if they are moving left
                 if lane.type == "road":
                     self.img = pygame.transform.flip(self.img, True, False)
                 
@@ -300,7 +305,7 @@ class obstacle():
     def draw(self):
         global pos
         
-        #JF: for the log type fo obstacle, it begins by displaying the leftmomst log sprite and shifting right
+        #JF: for the log type of obstacle, it begins by displaying the leftmomst log sprite and shifting right
         if self.lane.type == "w(log)":
             screen.blit(self.Limg, (self.x,self.y + pos - 5))
             
@@ -404,6 +409,7 @@ def menu(spot,right):
 # selected to start the game which starts the game music and prompts the user to go to shell in spyder to enter their player name.           
     if right:
         if spot == 0:
+            #JF: when start game is selected, the start game text flashes a few times before beginning the game
             pygame.mixer.Sound.play(startSound)
             for i in range(5):
                 screen.blit(titleFont2.render(("Start game"), False, tColor2), [420,430])
@@ -458,6 +464,7 @@ def menu(spot,right):
             state = 'instructions'
         
         elif spot == 3:
+            #JF: if done is set to True then the pygame window will close
             done = True
             
         return
@@ -570,13 +577,16 @@ def init():
 #KB: setting start = 3 relates to earlier established conditions that make the first lanes generated grass; from above, when start > 0 a lane of grass will be generated
 #and then the value of start will be lowered by one, meaning three lanes of grass will always be generated at the beginning of the game   
     start = 3
-
+    
+    #JF: resets the player sprite and location to default
     p = player()
     
+    #JF: multiple assignment !
     up = down = left = right = wait = above = below = lSide = rSide = onLog = done = noInput = False
     
     styles = ["grass","trees","road","w(log)","w(pad)"]
     
+    #JF: creates the first 9 lanes (8 on screen and one off)
     lanes = []
     for i in range(9):
         lanes.append(lane(700-(i*100)))
@@ -596,7 +606,8 @@ frogs = []
 frog = pygame.transform.scale(pygame.image.load("tile000.png"),(110,110))
 for i in range(4):
     frogs.append(pygame.transform.rotate(frog, (i*90)))
-    
+
+#JF: creates every animation loop list of sprites
 drown = []
 for i in range(1,6):
     drown.append(pygame.transform.scale(pygame.image.load(("b"+str(i)+".png")), (90,90)))
@@ -610,14 +621,19 @@ tractorL = []
 for i in range(2,5):
     tractorL.append(pygame.transform.flip(pygame.transform.scale(pygame.image.load(("tile05"+str(i)+".png")), (95,95)), True, False))
 
-oppsR = [pygame.transform.scale(pygame.image.load(("tile059.png")), (100,100)),pygame.transform.flip(pygame.transform.scale(pygame.image.load(("tile059.png")), (100,100)), False, True)]
-oppsL = [pygame.transform.flip(pygame.transform.scale(pygame.image.load("tile059.png"), (100,100)), True, False),pygame.transform.flip(pygame.transform.scale(pygame.image.load("tile059.png"), (100,100)), True, True)]
+oppsR = [pygame.transform.scale(pygame.image.load(("tile059.png")), (100,100)),\
+         pygame.transform.flip(pygame.transform.scale(pygame.image.load(("tile059.png")), (100,100)), False, True)]
 
+oppsL = [pygame.transform.flip(pygame.transform.scale(pygame.image.load("tile059.png"), (100,100)), True, False),\
+         pygame.transform.flip(pygame.transform.scale(pygame.image.load("tile059.png"), (100,100)), True, True)]
+
+#JF: starts the leaderboard off with 10 scores of 0
 leaderboard = []
 for i in range(10):
     leaderboard.append(person('------',0))
 #KB: sets the scale and position of the frog on the main menu screen
 select = pygame.transform.scale(pygame.image.load('tile004.png'), (40,40))
+
 #KB: assigns variables to the sounds and fonts used throughout the game for easy referencing in the rest of the code
 scoreFont = pygame.font.SysFont('playbill', 50)
 titleFont = pygame.font.Font('Retro Gaming.ttf', 15)
@@ -629,6 +645,7 @@ carHit = pygame.mixer.Sound("carHit.wav")
 jump = pygame.mixer.Sound("jump.wav")
 bubble = pygame.mixer.Sound("bubble.wav")
 scream = pygame.mixer.Sound("scream.wav")
+
 #################################### GAME LOOP ################################
 #KB: uses a while loop and if statements to determine what occurs after the game has ended 
 while True:
@@ -643,6 +660,7 @@ while True:
         
         if event.type == pygame.KEYDOWN:
             
+            #JF: the purpose of the move check is to only allow one input per frame, as after being registered, move goes to false
             if move and not noInput:
 
                 if event.key == pygame.K_UP and not above:      
@@ -688,10 +706,11 @@ while True:
         up = down = left = right = above = below = lSide = rSide = False
 
         if onLog:
-
+            #JF: if the player is on a log, the game preserves movement by shifting the player to the log's x value plus the distance to the contact point
             p.x = logOn.x + contact
             
         else:
+            #JF: if the player is not on a log, they are snapped to the closest tile of 100px
             p.x = round(p.x/100)*100
     # ============================== COLLISION ============================== #
 #KB: dictates what happens when the player collides with obstacles through if statements; in the case that the object is a tree, the player will not be able to move
@@ -706,15 +725,18 @@ while True:
             die("a")
             
         for i in lanes:
+            #JF: if a lane has been moved off screen, it is removed forom the list of lanes to prevent a buildup of checks
             if i.y + pos >= 800:
                 lanes.remove(i)
         
         for i in lanes:
+            #JF: if there is a tree or lily pad lane at the top of the screen and also above it, the game will ensure that the trees and lily pads do not appear on the same x value
             if i.y + pos == 0 and i.type in "trees_w(pad)":
                 for I in lanes:
                     if I.y + pos == -100 and I.type in "trees_w(pad)":
                         obstaclePlacementReroll(i,I)
             
+            #JF: loops the logs around the screen when they proceed all the way to one side or the other (l and r are still backwards)
             if i.type in "road_w(log)":
                 for I in i.obstacles:
                     if I.x > 1400 and i.direction == "l":
@@ -722,15 +744,18 @@ while True:
                     elif I.x < -400 and i.direction == "r":
                         I.x = 1400
             
+            #JF: if two log lanes are above eachother, they will have their speeds altered to not be the same to prevent any impossible situations
             if i.y + pos == 0 and i.type in "road_w(log)":
                 for I in lanes:
                     if I.y + pos == -100 and I.type in "road_w(log)":
                         while i.speed == I.speed:
                             I.speed += r(-1,1)
             
+            #JF: if the payer is not on a log lane, they will be marked and not being on a log
             if i.type != "w(log)" and i.y + pos == p.y:
                 onLog = False
-                
+            
+            #JF: prevents a player from walking into trees
             if i.type == "trees":
                 for I in i.obstacles:
                     
@@ -745,18 +770,20 @@ while True:
                             lSide = True
                         if I.x == p.x + 100:
                             rSide = True
-
+            
+            #JF: if the player is inside the hitbox of a given car, they die.
             elif i.type == "road" and i.y + pos == p.y:
                 for I in i.obstacles:
                     if I.x + I.w > p.x + 25 and I.x < p.x + p.w + 25:
                         die("car")
                         break
             
+            #JF: if the player is on a water lane, they are marked to die unless ontop of an obstacle
             elif i.type in "w(pad)_w(log)" and i.y + pos == p.y:
                 onWater = True
                 
                 for I in i.obstacles:
-
+                    #JF: if contact is made with an obstacle, the player is snapped to the closest tile on that obstacle and that contact point is stored
                     if I.x + I.w > p.x and I.x < p.x + p.w:
                         onWater = False
                         
@@ -764,7 +791,7 @@ while True:
                             contact = round((p.x - I.x)/100)*100
                             logOn = I
                             onLog = True
-                             
+                #JF: if no contact with an obstacle is made, the player dies             
                 if onWater:
                     onLog = False
                     die("drown")
