@@ -394,7 +394,7 @@ def menu(spot,right):
     screen.blit(titleFont.render(("use arrow keys and press right to select"), False, (53,197,0)), [300,300])
     
     #JF:sets the defaul colour of the menu selection options as well as what it changes to iff it is hovered over
-    tColor1 = tColor2 = tColor3 = tColor4 = (53,197,0)
+    tColor1 = tColor2 = tColor3 = tColor4 = tColor5 = (53,197,0)
     hover = (212, 217, 67)
       
     if spot == 0:
@@ -405,6 +405,8 @@ def menu(spot,right):
         tColor3 = hover
     elif spot == 3:
         tColor4 = hover
+    elif spot == 4:
+        tColor5 = hover
 #KB: uses a series of if statements to establish what happens when the player clicks the right arrow at each different main menu spot; spot==0 means the player has
 # selected to start the game which starts the game music and prompts the user to go to shell in spyder to enter their player name.           
     if right:
@@ -464,17 +466,22 @@ def menu(spot,right):
             state = 'instructions'
         
         elif spot == 3:
+            #Do smth to change the sprites
+            print('HI')
+        
+        elif spot == 4:
             #JF: if done is set to True then the pygame window will close
             done = True
             
         return
         
-    screen.blit(titleFont2.render(("Start game"), False, tColor1), [420,430])
-    screen.blit(titleFont2.render(("Leaderboard"), False, tColor2), [420,500])
-    screen.blit(titleFont2.render(("Instructions"), False, tColor3), [420,570])
-    screen.blit(titleFont2.render(("Quit"), False, tColor4), [420,640])
+    screen.blit(titleFont2.render(("Start game"), False, tColor1), [420,410])
+    screen.blit(titleFont2.render(("Leaderboard"), False, tColor2), [420,480])
+    screen.blit(titleFont2.render(("Instructions"), False, tColor3), [420,550])
+    screen.blit(titleFont2.render(("Alternate sprites"), False, tColor4), [420,620])
+    screen.blit(titleFont2.render(("Quit"), False, tColor5), [420,690])
     
-    screen.blit(select, [370,420+(spot*70)])
+    screen.blit(select, [370,400+(spot*70)])
 #KB: defines a new function that is triggered if the player clicks the right arrow when beside the "instructions" main menu option and formats the instruction text
 # into multiple lines across the screen
 def instructions(right):
@@ -815,7 +822,7 @@ while True:
         if down:
             spot += 1
         
-        menu(spot%4,right)
+        menu(spot%5,right)
         
         up = down = right = False
     
