@@ -184,7 +184,6 @@ class lane():
     
         if self.direction == "r":
             #JF: speeds are default initialized for going left, so if the lane is moving right the speeds are reversed
-            #It also appears when first making this that I reversed the labelling of left and right, so that lanes labelled as right, go left and vice versa
             self.speed *= -1
               
     def draw(self):
@@ -387,6 +386,7 @@ def menu(spot,right):
     global done
     global name
     global leaderboard
+    global check
     
     screen.fill((0, 0, 0))
     screen.blit(title, [0,-7])
@@ -467,7 +467,7 @@ def menu(spot,right):
         
         elif spot == 3:
             #Do smth to change the sprites
-            print('HI')
+            check += 1
         
         elif spot == 4:
             #JF: if done is set to True then the pygame window will close
@@ -478,7 +478,14 @@ def menu(spot,right):
     screen.blit(titleFont2.render(("Start game"), False, tColor1), [420,410])
     screen.blit(titleFont2.render(("Leaderboard"), False, tColor2), [420,480])
     screen.blit(titleFont2.render(("Instructions"), False, tColor3), [420,550])
+    
     screen.blit(titleFont2.render(("Alternate sprites"), False, tColor4), [420,620])
+    pygame.draw.rect(screen, tColor4, (710, 620, 30, 30))
+    pygame.draw.rect(screen, (0,0,0), (715, 625, 20, 20))
+    
+    if check % 2 == 1:
+        pygame.draw.rect(screen, tColor4, (718, 628, 14, 14))
+    
     screen.blit(titleFont2.render(("Quit"), False, tColor5), [420,690])
     
     screen.blit(select, [370,400+(spot*70)])
@@ -504,6 +511,12 @@ def instructions(right):
 # if the function is triggered, the player's entered name that was previously collected in spyder will be printed beside their recorded score 
 def lb(right):
     global state
+    global reload
+    
+    if reload:
+        print("hi")
+        
+        reload = False
     
     screen.fill((0, 0, 0))
     screen.blit(title, [0,-7])
@@ -515,6 +528,7 @@ def lb(right):
     
     if right:
         init()
+        reload = True
         state = 'main'
 #KB: uses if statements to set up what happens in scenarios where the player dies in the game; generates different images and sounds
 #depending on how the player dies           
@@ -607,6 +621,8 @@ pygame.display.set_caption("Street legal frogger")
 
 init()
 spot = 0
+check = 0
+reload = True
 state = 'main'
 
 frogs = []
@@ -652,6 +668,7 @@ carHit = pygame.mixer.Sound("carHit.wav")
 jump = pygame.mixer.Sound("jump.wav")
 bubble = pygame.mixer.Sound("bubble.wav")
 scream = pygame.mixer.Sound("scream.wav")
+
 
 #################################### GAME LOOP ################################
 #KB: uses a while loop and if statements to determine what occurs after the game has ended 
@@ -705,6 +722,13 @@ while True:
 #KB: uses if statements to allow player movement and movement of the cars on road spaces; if the player is on a log, they will be moved in the direction that the log is moving  
     if state == 'game':
         
+        
+        if check % 2 == 1:
+            
+            print("sprite changed wow!")
+            
+            check += 1
+        
         for i in lanes:
             for I in i.obstacles:
                 I.move()
@@ -724,7 +748,7 @@ while True:
 # onto the same square as the obstacle, whereas moving onto a water square when the player is not on a log or colliding with a car will result in character death
 # this will trigger the scenarios established above for each type of character death.   
     if state == 'game':
-
+        
         if p.y == 700:
             below = True
             
