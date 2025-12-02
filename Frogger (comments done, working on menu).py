@@ -223,7 +223,7 @@ class obstacle():
                     print("Tree change")
                 
                 else:
-                    self.img = pygame.image.load("treeSprite.png")
+                    self.img = pygame.image.load("tc scaled.png")
                 self.img = pygame.transform.scale(self.img, (100,100))
             
             else:
@@ -232,7 +232,7 @@ class obstacle():
                     print("Lily pad change")
                 
                 else:
-                    self.img = pygame.image.load("pad.png")
+                    self.img = pygame.image.load("hh scaled.png")
                 self.img = pygame.transform.scale(self.img, (95,95))
             
             #JF: randomly assigns an x value to the tree or lily pad along the lane
@@ -254,7 +254,7 @@ class obstacle():
                         print("Goose change")
                 
                     else:
-                        self.img = pygame.image.load("whale.png")
+                        self.img = pygame.image.load("goose drawing.png")
                     self.img = pygame.transform.scale(self.img, (152,100))
                     self.w = 160
                     
@@ -264,7 +264,7 @@ class obstacle():
                         print("Car change")
                 
                     else:
-                        self.img = pygame.image.load(c(["tile049.png","tile048.png"]))
+                        self.img = pygame.image.load(c(["car1.png","car2.png"]))
                     
                     #JF: randomly decides in two checks if the car is going to become a police car or tractor 
                     if r(1,10) == 1 and lane.speed >= 5:
@@ -288,9 +288,9 @@ class obstacle():
                     print("logs change")
                 
                 else:
-                    self.Limg = pygame.image.load("tile024.png")
-                    self.Mimg = pygame.image.load("tile025.png")
-                    self.Rimg = pygame.image.load("tile026.png")
+                    self.Limg = pygame.image.load("snake tail sc.png")
+                    self.Mimg = pygame.image.load("ahhhhh.png")
+                    self.Rimg = pygame.image.load("pleasework.png")
                 
                 self.Limg = pygame.transform.scale(self.Limg, (100,100))
                 self.Mimg = pygame.transform.scale(self.Mimg, (100,100))
