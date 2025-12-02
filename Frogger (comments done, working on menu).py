@@ -242,7 +242,7 @@ class obstacle():
                 
                 #JF: adds a fun easter egg of one in 30 cars being the hipster whale (the mascot of the crossy road devs)
                 if r(1,30)==1:
-                    self.img = pygame.image.load("whale.png")
+                    self.img = pygame.image.load("goose_scaled.png")
                     self.img = pygame.transform.scale(self.img, (152,100))
                     self.w = 160
                     
