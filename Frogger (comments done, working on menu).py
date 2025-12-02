@@ -207,7 +207,7 @@ class lane():
 #KB: creates a class containing information concerning movement of obstacles                 
 class obstacle():
 #KB: loads and scales images of obstacles based on the terrain; for example, if the ground material type is "trees", a file containing a tree will be loaded and added at a position on the ground   
-    def __init__(self,lane):
+    def __init__(self,lane,check):
         self.y = lane.y
         self.img = pygame.image.load("scaled.png")
         #JF: Each obstacle also contains the information of the lane it's contained in to keep movement and direction consistent (and easy for me to code)
@@ -219,12 +219,20 @@ class obstacle():
         if lane.type in "trees_w(pad)":
             if lane.type == "trees":
                 #JF: if the lane is a "trees" lane, the obstacle present is trees. WOW !
-                self.img = pygame.image.load("treeSprite.png")
+                if check % 2 == 1:
+                    print("Tree change")
+                
+                else:
+                    self.img = pygame.image.load("treeSprite.png")
                 self.img = pygame.transform.scale(self.img, (100,100))
             
             else:
                 #JF: if the lane type is w(water) with lily pads, the "obstacle" present is lilypads
-                self.img = pygame.image.load("pad.png")
+                if check % 2 == 1:
+                    print("Lily pad change")
+                
+                else:
+                    self.img = pygame.image.load("pad.png")
                 self.img = pygame.transform.scale(self.img, (95,95))
             
             #JF: randomly assigns an x value to the tree or lily pad along the lane
@@ -242,13 +250,21 @@ class obstacle():
                 
                 #JF: adds a fun easter egg of one in 30 cars being the hipster whale (the mascot of the crossy road devs)
                 if r(1,30)==1:
-                    self.img = pygame.image.load("whale.png")
+                    if check % 2 == 1:
+                        print("Goose change")
+                
+                    else:
+                        self.img = pygame.image.load("whale.png")
                     self.img = pygame.transform.scale(self.img, (152,100))
                     self.w = 160
                     
                 else:
                     #JF: randomly chooses between two car sprites
-                    self.img = pygame.image.load(c(["tile049.png","tile048.png"]))
+                    if check % 2 == 1:
+                        print("Car change")
+                
+                    else:
+                        self.img = pygame.image.load(c(["tile049.png","tile048.png"]))
                     
                     #JF: randomly decides in two checks if the car is going to become a police car or tractor 
                     if r(1,10) == 1 and lane.speed >= 5:
@@ -268,9 +284,13 @@ class obstacle():
                 
             else:
                 #JF: initializes the sprites for logs
-                self.Limg = pygame.image.load("tile024.png")
-                self.Mimg = pygame.image.load("tile025.png")
-                self.Rimg = pygame.image.load("tile026.png")
+                if check % 2 == 1:
+                    print("logs change")
+                
+                else:
+                    self.Limg = pygame.image.load("tile024.png")
+                    self.Mimg = pygame.image.load("tile025.png")
+                    self.Rimg = pygame.image.load("tile026.png")
                 
                 self.Limg = pygame.transform.scale(self.Limg, (100,100))
                 self.Mimg = pygame.transform.scale(self.Mimg, (100,100))
@@ -522,8 +542,6 @@ def lb(right):
     for i in range(10):
         screen.blit(titleFont2.render((((str(i+1)+". ").rjust(4)+leaderboard[i].name)), False, (53,197,0)), [340,300 + (i*50)])
         screen.blit(titleFont2.render(((str(leaderboard[i].score))), False, (53,197,0)), [570,300 + (i*50)])
-        
-        str(leaderboard[i].score)
     
     if right:
         init()
@@ -657,8 +675,6 @@ with open("scoreList.txt") as file:
 for i in range(0,len(playerData),2):
     leaderboard.append(person(playerData[i],playerData[i+1]))
 
-for i in leaderboard:
-    print(i.score)
 #KB: sets the scale and position of the frog on the main menu screen
 select = pygame.transform.scale(pygame.image.load('scaled.png'), (65,65))
 
@@ -730,7 +746,7 @@ while True:
         
         if check % 2 == 1:
             
-            print("sprite changed wow!")
+            print("Frog change (needs new list), tractor change")
             
             check += 1
         
