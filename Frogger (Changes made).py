@@ -793,12 +793,13 @@ while True:
             if i.y + pos >= 800:
                 lanes.remove(i)
         
+        #JF: if there are two tree or lily pad lanes toegther, the game will ensure that the trees and lily pads do not appear on the same x value
         for i in lanes:
-            #JF: if there is a tree or lily pad lane at the top of the screen and also above it, the game will ensure that the trees and lily pads do not appear on the same x value
-            if i.y + pos == 0 and i.type in "trees_w(pad)":
+            if i.type in "trees_w(pad)":
                 for I in lanes:
-                    if I.y + pos == -100 and I.type in "trees_w(pad)":
+                    if I.type in "trees_w(pad)" and I.y == i.y - 100:
                         obstaclePlacementReroll(i,I)
+                
             
             #JF: loops the logs around the screen when they proceed all the way to one side or the other (l and r are still backwards)
             if i.type in "road_w(log)":
