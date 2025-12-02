@@ -252,9 +252,7 @@ class obstacle():
                 if r(1,30)==1:
                     if check % 2 == 1:
                         print("Goose change")
-                        self.img = pygame.image.load("goose drawing.png")
-                        self.img = pygame.transform.scale(self.img, (152,100))
-                        self.w = 160
+                        self.img = pygame.image.load("goose_scaled.png")
                     else:
                         self.img = pygame.image.load("whale.png")
                     self.img = pygame.transform.scale(self.img, (152,100))
