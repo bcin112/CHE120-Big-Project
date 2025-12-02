@@ -609,10 +609,8 @@ def init():
     global start
     global lanes
     global p
-    global select
     global noInput
     global change
-    global check
     
     pos = contact = 0
 #KB: setting start = 3 relates to earlier established conditions that make the first lanes generated grass; from above, when start > 0 a lane of grass will be generated
@@ -627,11 +625,7 @@ def init():
     
     change = True
     
-    check = 0
-    
     styles = ["grass","trees","road","w(log)","w(pad)"]
-    
-    select = pygame.transform.scale(pygame.image.load('tile004.png'), (40,40))
     
     #JF: creates the first 9 lanes (8 on screen and one off)
     lanes = []
@@ -645,6 +639,8 @@ HEIGHT = 800
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption("Street legal frogger")
 
+select = pygame.transform.scale(pygame.image.load('tile004.png'), (40,40))
+check = 0
 init()
 spot = 0
 reload = True
