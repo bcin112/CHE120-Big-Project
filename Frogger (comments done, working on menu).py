@@ -147,7 +147,7 @@ class lane():
             
             if self.type == "trees":
                 for i in range(r(5,7)):
-                    self.obstacles.append(obstacle(self))
+                    self.obstacles.append(obstacle(self,check))
                 
                 removeAll(styles,"trees")
                 wait = True
@@ -161,13 +161,13 @@ class lane():
             self.speed = r(3,6)
             for i in range(r(2,5)):
                 #JF: the obstacle 
-                self.obstacles.append(obstacle(self))
+                self.obstacles.append(obstacle(self,check))
         
         else:
             #JF: this else contains all water lane types, and makes it so that you cannot have two of the same water lane in a row by removing it from the pool of styles availible
             if self.type == "w(pad)":
                 for i in range(r(3,7)):
-                    self.obstacles.append(obstacle(self))
+                    self.obstacles.append(obstacle(self,check))
                 
                 removeAll(styles,"w(pad)")
                 wait = True
@@ -176,7 +176,7 @@ class lane():
                 self.direction = c(["l","r"])
                 self.speed = r(2,5)
                 for i in range(r(2,3)):
-                    self.obstacles.append(obstacle(self))
+                    self.obstacles.append(obstacle(self,check))
                 removeAll(styles,"trees")
                 wait = True
             
@@ -488,7 +488,9 @@ def menu(spot,right):
             state = 'instructions'
         
         elif spot == 3:
-            #Do smth to change the sprites
+            if check % 2 == 0:
+                select = 
+            
             check += 1
         
         elif spot == 4:
@@ -635,9 +637,9 @@ HEIGHT = 800
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption("Street legal frogger")
 
+check = 0
 init()
 spot = 0
-check = 0
 reload = True
 state = 'main'
 
