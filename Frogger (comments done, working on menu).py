@@ -219,7 +219,7 @@ class obstacle():
         if lane.type in "trees_w(pad)":
             if lane.type == "trees":
                 #JF: if the lane is a "trees" lane, the obstacle present is trees. WOW !
-                self.img = pygame.image.load("tc scaled.png")
+                self.img = pygame.image.load("treeSprite.png")
                 self.img = pygame.transform.scale(self.img, (100,100))
             
             else:
@@ -242,7 +242,7 @@ class obstacle():
                 
                 #JF: adds a fun easter egg of one in 30 cars being the hipster whale (the mascot of the crossy road devs)
                 if r(1,30)==1:
-                    self.img = pygame.image.load("goose_scaled.png")
+                    self.img = pygame.image.load("whale.png")
                     self.img = pygame.transform.scale(self.img, (152,100))
                     self.w = 160
                     
