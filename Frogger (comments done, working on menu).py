@@ -222,7 +222,6 @@ class obstacle():
                 if check % 2 == 1:
                     print("Tree change")
                     self.img = pygame.image.load("tc scaled.png")
-                    self.img = pygame.transform.scale(self.img, (100,100))
                 else:
                     self.img = pygame.image.load("treeSprite.png")
                 self.img = pygame.transform.scale(self.img, (100,100))
@@ -232,7 +231,6 @@ class obstacle():
                 if check % 2 == 1:
                     print("Lily pad change")
                     self.img = pygame.image.load("hh scaled.png")
-                    self.img = pygame.transform.scale(self.img, (95,95))
                 else:
                     self.img = pygame.image.load("pad.png")
                 self.img = pygame.transform.scale(self.img, (95,95))
@@ -268,7 +266,7 @@ class obstacle():
                         print("Car change")
                         self.img = pygame.image.load(c(["car1.png","car2.png"]))
                     else:
-                        self.img = pygame.image.load(c(["tile048","tile049.png"]))
+                        self.img = pygame.image.load(c(["tile048.png","tile049.png"]))
                     
                     #JF: randomly decides in two checks if the car is going to become a police car or tractor 
                     if r(1,10) == 1 and lane.speed >= 5:
@@ -296,7 +294,7 @@ class obstacle():
                 else:
                     self.Limg = pygame.image.load("tile024.png")
                     self.Mimg = pygame.image.load("tile025.png")
-                    self.Rimg = pygame.image.load("title026.png")
+                    self.Rimg = pygame.image.load("tile026.png")
                 
                 self.Limg = pygame.transform.scale(self.Limg, (100,100))
                 self.Mimg = pygame.transform.scale(self.Mimg, (100,100))
