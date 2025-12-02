@@ -407,6 +407,7 @@ def menu(spot,right):
     global name
     global leaderboard
     global check
+    global select
     
     screen.fill((0, 0, 0))
     screen.blit(title, [0,-7])
@@ -489,7 +490,9 @@ def menu(spot,right):
         
         elif spot == 3:
             if check % 2 == 0:
-                select = 
+                select = pygame.transform.scale(pygame.image.load('scaled.png'), (65,65))
+            else:
+                select = pygame.transform.scale(pygame.image.load('tile004.png'), (40,40))
             
             check += 1
         
@@ -529,7 +532,6 @@ def instructions(right):
     screen.blit(titleFont2.render(("jumping on logs, and avoiding cars"), False, (53,197,0)), [230,610])
 #KB: allows the player to return to the main menu after viewing the instructions    
     if right:
-        init()
         state = 'main'
 #KB: defines a function triggered if the player clicks the right arrow while beside the "leaderboard" option on the main menu; 
 # if the function is triggered, the player's entered name that was previously collected in spyder will be printed beside their recorded score 
@@ -546,7 +548,6 @@ def lb(right):
         screen.blit(titleFont2.render(((str(leaderboard[i].score))), False, (53,197,0)), [570,300 + (i*50)])
     
     if right:
-        init()
         state = 'main'
 #KB: uses if statements to set up what happens in scenarios where the player dies in the game; generates different images and sounds
 #depending on how the player dies           
@@ -611,6 +612,7 @@ def init():
     global start
     global lanes
     global p
+    global select
     
     pos = contact = 0
 #KB: setting start = 3 relates to earlier established conditions that make the first lanes generated grass; from above, when start > 0 a lane of grass will be generated
@@ -624,6 +626,8 @@ def init():
     up = down = left = right = wait = above = below = lSide = rSide = onLog = done = noInput = False
     
     styles = ["grass","trees","road","w(log)","w(pad)"]
+    
+    select = pygame.transform.scale(pygame.image.load('tile004.png'), (40,40))
     
     #JF: creates the first 9 lanes (8 on screen and one off)
     lanes = []
@@ -676,9 +680,6 @@ with open("scoreList.txt") as file:
 
 for i in range(0,len(playerData),2):
     leaderboard.append(person(playerData[i],playerData[i+1]))
-
-#KB: sets the scale and position of the frog on the main menu screen
-select = pygame.transform.scale(pygame.image.load('scaled.png'), (65,65))
 
 #KB: assigns variables to the sounds and fonts used throughout the game for easy referencing in the rest of the code
 scoreFont = pygame.font.SysFont('playbill', 50)
