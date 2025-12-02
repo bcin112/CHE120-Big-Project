@@ -220,7 +220,6 @@ class obstacle():
             if lane.type == "trees":
                 #JF: if the lane is a "trees" lane, the obstacle present is trees. WOW !
                 if check % 2 == 1:
-                    print("Tree change")
                     self.img = pygame.image.load("tc scaled.png")
                 else:
                     self.img = pygame.image.load("treeSprite.png")
@@ -229,7 +228,6 @@ class obstacle():
             else:
                 #JF: if the lane type is w(water) with lily pads, the "obstacle" present is lilypads
                 if check % 2 == 1:
-                    print("Lily pad change")
                     self.img = pygame.image.load("hh scaled.png")
                 else:
                     self.img = pygame.image.load("pad.png")
@@ -251,7 +249,6 @@ class obstacle():
                 #JF: adds a fun easter egg of one in 30 cars being the hipster whale (the mascot of the crossy road devs)
                 if r(1,30)==1:
                     if check % 2 == 1:
-                        print("Goose change")
                         self.img = pygame.image.load("goose_scaled.png")
                     else:
                         self.img = pygame.image.load("whale.png")
@@ -261,7 +258,6 @@ class obstacle():
                 else:
                     #JF: randomly chooses between two car sprites
                     if check % 2 == 1:
-                        print("Car change")
                         self.img = pygame.image.load(c(["car1.png","car2.png"]))
                     else:
                         self.img = pygame.image.load(c(["tile048.png","tile049.png"]))
@@ -285,7 +281,6 @@ class obstacle():
             else:
                 #JF: initializes the sprites for logs
                 if check % 2 == 1:
-                    print("logs change")
                     self.Limg = pygame.image.load("snake tail sc.png")
                     self.Mimg = pygame.image.load("ahhhhh.png")
                     self.Rimg = pygame.image.load("pleasework.png")
@@ -615,6 +610,9 @@ def init():
     global lanes
     global p
     global select
+    global noInput
+    global change
+    global check
     
     pos = contact = 0
 #KB: setting start = 3 relates to earlier established conditions that make the first lanes generated grass; from above, when start > 0 a lane of grass will be generated
@@ -626,6 +624,10 @@ def init():
     
     #JF: multiple assignment !
     up = down = left = right = wait = above = below = lSide = rSide = onLog = done = noInput = False
+    
+    change = True
+    
+    check = 0
     
     styles = ["grass","trees","road","w(log)","w(pad)"]
     
@@ -643,7 +645,6 @@ HEIGHT = 800
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption("Street legal frogger")
 
-check = 0
 init()
 spot = 0
 reload = True
@@ -749,9 +750,8 @@ while True:
     if state == 'game':
         
         
-        if check % 2 == 1:
+        if check % 2 == 1 and change:
             
-            print("Frog change (needs new list), tractor change")
             tractorR = []
             for i in range(4,1,-1):
                 tractorR.append(pygame.transform.scale(pygame.image.load(("sc5"+str(i)+".png")), (95,95)))
@@ -762,8 +762,9 @@ while True:
             
             oppsR = [pygame.transform.scale(pygame.image.load(("car bouncy.png")), (100,100)),pygame.transform.flip(pygame.transform.scale(pygame.image.load(("car bouncy.png")), (100,100)), False, True)]
             oppsL = [pygame.transform.flip(pygame.transform.scale(pygame.image.load("car bouncy.png"), (100,100)), True, False),pygame.transform.flip(pygame.transform.scale(pygame.image.load("car bouncy.png"), (100,100)), True, True)]
+            
+            change = False
 
-            check += 1
         
         for i in lanes:
             for I in i.obstacles:
