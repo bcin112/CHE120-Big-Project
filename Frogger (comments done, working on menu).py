@@ -219,7 +219,7 @@ class obstacle():
         if lane.type in "trees_w(pad)":
             if lane.type == "trees":
                 #JF: if the lane is a "trees" lane, the obstacle present is trees. WOW !
-                self.img = pygame.image.load("treeSprite.png")
+                self.img = pygame.image.load("tc scaled.png")
                 self.img = pygame.transform.scale(self.img, (100,100))
             
             else:
