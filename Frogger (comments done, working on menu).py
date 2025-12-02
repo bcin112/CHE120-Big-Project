@@ -15,7 +15,7 @@ class player():
         self.w = 50
         self.h = 1
 #KB: loads the image that will be used for the frog character and scales it to size
-        self.img = pygame.image.load("tile000.png")
+        self.img = pygame.image.load("frog (main scaled).png")
         self.img = pygame.transform.scale(self.img, (110,110))
     #JF: The draw method for the player sprite, (i was too lazy to center the sprite correctly so i manually adjusted it for when it rotates)
     def draw(self):
@@ -624,7 +624,7 @@ reload = True
 state = 'main'
 
 frogs = []
-frog = pygame.transform.scale(pygame.image.load("tile000.png"),(110,110))
+frog = pygame.transform.scale(pygame.image.load("frog (main scaled).png"),(110,110))
 for i in range(4):
     frogs.append(pygame.transform.rotate(frog, (i*90)))
 
