@@ -431,8 +431,8 @@ def menu(spot,right):
 # or the player does not input a name, they will be prompted to enter a 1-6 character name.                 
             while True:
                 name = input("Enter name here: ")
-                if len(name) > 6 or len(name) == 0:
-                    print('\nname must be 1-6 characters\n')
+                if len(name) > 9 or len(name) == 0 or " " in name:
+                    print('\nname must be 1-9 characters and NO SPACES PLEASE\n')
                 else:
                     break
             
@@ -448,17 +448,19 @@ def menu(spot,right):
             x = leaderboard
 
             leaderboard = []
-            #JF: reorders the leaderboard list of player objects to be greatest score to least
+            #JF: reorders (sorts) the leaderboard list of player objects to be greatest score to least
             for i in x:
                 a = True
                 for I in range(len(leaderboard)):
-                    if i.score > leaderboard[I].score:
+                    if int(i.score) > int(leaderboard[I].score):
                         leaderboard.insert(I,i)
                         a = False
                         break
                 if a:
                     leaderboard.append(i)
-                    
+            
+            leaderboard = leaderboard[:10]
+            
             state = 'leaderboard'
         
         elif spot == 2:
@@ -511,12 +513,6 @@ def instructions(right):
 # if the function is triggered, the player's entered name that was previously collected in spyder will be printed beside their recorded score 
 def lb(right):
     global state
-    global reload
-    
-    if reload:
-        print("hi")
-        
-        reload = False
     
     screen.fill((0, 0, 0))
     screen.blit(title, [0,-7])
@@ -524,11 +520,13 @@ def lb(right):
     screen.blit(titleFont.render(("press right to return"), False, (53,197,0)), [400,250])
     
     for i in range(10):
-        screen.blit(titleFont2.render((((str(i+1)+". ").rjust(4)+leaderboard[i].name.ljust(7)+str(leaderboard[i].score))), False, (53,197,0)), [420,300 + (i*50)])
+        screen.blit(titleFont2.render((((str(i+1)+". ").rjust(4)+leaderboard[i].name)), False, (53,197,0)), [340,300 + (i*50)])
+        screen.blit(titleFont2.render(((str(leaderboard[i].score))), False, (53,197,0)), [570,300 + (i*50)])
+        
+        str(leaderboard[i].score)
     
     if right:
         init()
-        reload = True
         state = 'main'
 #KB: uses if statements to set up what happens in scenarios where the player dies in the game; generates different images and sounds
 #depending on how the player dies           
@@ -652,8 +650,15 @@ oppsL = [pygame.transform.flip(pygame.transform.scale(pygame.image.load("tile059
 
 #JF: starts the leaderboard off with 10 scores of 0
 leaderboard = []
-for i in range(10):
-    leaderboard.append(person('------',0))
+
+with open("scoreList.txt") as file:
+    playerData = file.read().split(" ")
+
+for i in range(0,len(playerData),2):
+    leaderboard.append(person(playerData[i],playerData[i+1]))
+
+for i in leaderboard:
+    print(i.score)
 #KB: sets the scale and position of the frog on the main menu screen
 select = pygame.transform.scale(pygame.image.load('tile004.png'), (40,40))
 
@@ -864,3 +869,12 @@ while True:
     pygame.display.flip()
     pygame.time.delay(10)
 pygame.quit()
+
+with open("scoreList.txt","w") as file:
+    out = []
+    for i in leaderboard:
+        out.append(i.name)
+        out.append(str(i.score))
+        
+    file.write(" ".join(out))
+    
