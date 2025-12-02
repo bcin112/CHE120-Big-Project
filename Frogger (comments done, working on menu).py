@@ -209,7 +209,7 @@ class obstacle():
 #KB: loads and scales images of obstacles based on the terrain; for example, if the ground material type is "trees", a file containing a tree will be loaded and added at a position on the ground   
     def __init__(self,lane):
         self.y = lane.y
-        self.img = pygame.image.load("tile004.png")
+        self.img = pygame.image.load("scaled.png")
         #JF: Each obstacle also contains the information of the lane it's contained in to keep movement and direction consistent (and easy for me to code)
         self.lane = lane
         self.h = 100
@@ -660,7 +660,7 @@ for i in range(0,len(playerData),2):
 for i in leaderboard:
     print(i.score)
 #KB: sets the scale and position of the frog on the main menu screen
-select = pygame.transform.scale(pygame.image.load('tile004.png'), (40,40))
+select = pygame.transform.scale(pygame.image.load('scaled.png'), (65,65))
 
 #KB: assigns variables to the sounds and fonts used throughout the game for easy referencing in the rest of the code
 scoreFont = pygame.font.SysFont('playbill', 50)
