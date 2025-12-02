@@ -624,7 +624,7 @@ reload = True
 state = 'main'
 
 frogs = []
-frog = pygame.transform.scale(pygame.image.load("frog (real main).png"),(110,110))
+frog = pygame.transform.scale(pygame.image.load("frog (main scaled).png"),(110,110))
 for i in range(4):
     frogs.append(pygame.transform.rotate(frog, (i*90)))
 
